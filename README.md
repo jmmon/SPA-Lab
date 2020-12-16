@@ -1,3 +1,3 @@
-# ejs-demo
+# SPA Routing Lab
 
-This is demo code for a DigitalOcean tutorial here: https://www.digitalocean.com/community/tutorials/how-to-use-ejs-to-template-your-node-application
+Clone the repo and run "npm install". Then open your browser to port 2001 to get started.
