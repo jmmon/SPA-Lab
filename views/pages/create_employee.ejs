@@ -6,7 +6,7 @@
             <p>Using the submit button we will send a POST request to the database and then display a success message. </p>
          <div class="bg-light p-2 rounded border my-5">
           <h2>Add Your User</h2>
-            <form id="comment-form" action="" method="">
+            <form id="comment-form" action="/add" method="POST">
               <div class="mb-3">
                 <div class="mb-2">  <label for="input-firstName" class="form-label">First Name:</label>
                   <input type="text" name="user[firstName]"></div>
@@ -24,6 +24,8 @@
             </form>
          </div>
         </div>
+        <a href="/update"><input type="button" value="Update Employee..."></a>
+        <a href="/delete"><input type="button" value="Delete Employee..."></a>
     </main>
 </body>
 </html>

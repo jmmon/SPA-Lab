@@ -1,5 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- Your code goes here. It should look very similar to other pages hint hint. You'd just need to modify the main content to display a single person.  -->
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body class="container">
+    <header><%- include('../partials/header'); %></header>
+
+    <main>
+        <div class="container">
+            <h1>Detail: <%= person.title %> <%= person.firstName %> <%= person.lastName %></h1>
+            <!-- Your code goes here. It should look very similar to other pages hint hint. You'd just need to modify the main content to display a single person.  -->
+            <div class="row justify-content-center" style="display: block">
+                <img src="<%= person.picture %>">
+                <%= person.firstName %>
+                <%= person.lastName %>
+                <%= person.email %>
+
+                <p>
+                    <%= person.firstName %> <%= person.lastName %>
+                </p>
+                <p>
+                    Email: <%= person.email %>
+                </p>
+                <p>
+                    website userID: <%= person.id %>
+                </p>
+            </div>
+        </div>
+    </main>
+    <footer><%- include('../partials/footer'); %></footer>
+
 </body>
+
 </html>
