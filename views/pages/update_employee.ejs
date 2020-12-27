@@ -11,7 +11,7 @@
             <h1>Update an Employee</h1>
             <p>Update an existing employee's first name and title, using the firebase ID as a reference.</p>
          <div class="bg-light p-2 rounded border my-5">
-          <h3>Update Your User</h3>
+          <h3>Update Your Employee</h3>
             <form id="comment-form" action="/update" method="POST">
               <div class="mb-3">
                 <div class="mb-2">  <label for="input-firstName" class="form-label">First Name:</label>
@@ -20,7 +20,7 @@
                   <input type="text" name="user[id]"></div>
                <div class="mb-2"> <label for="input" class="form-label">Title:</label>
                   <input type="text-title" name="user[title]"></div>
-                <input type="submit" value="Update User">
+                <input type="submit" value="Update Employee">
             </form>
             <p>Using the Update button we will send a PATCH request to the database and then redirect to the employee's profile page. </p>
          </div>

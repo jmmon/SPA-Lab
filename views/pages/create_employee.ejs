@@ -13,7 +13,7 @@
             <h1>Add an Employee</h1>
             <p>Add a new employee to your employees list.</p>
          <div class="bg-light p-2 rounded border my-5">
-          <h3>Add Your User</h3>
+          <h3>Add Your Employee</h3>
             <form id="comment-form" action="/add" method="POST">
               <div class="mb-3">
                 <div class="mb-2">  <label for="input-firstName" class="form-label">First Name:</label>
@@ -28,13 +28,14 @@
                  <input type="text" name="user[picture]"></div>
                <div class="mb-2"> <label for="input" class="form-label">Title:</label>
                   <input type="text-title" name="user[title]"></div>
-                <input type="submit" value="Submit">
+                <input type="submit" value="Submit Employee">
             </form>
-            <p>Using the Submit button we will send a POST request to the database and then redirect to employees directory. </p>
+            <p>Using the Submit button we will send a POST request to the database and then redirect to employees directory.</p>
          </div>
+         <a href="/update"><input type="button" value="Update Employee..."></a>
+         <a href="/delete"><input type="button" value="Delete Employee..."></a>
         </div>
-        <a href="/update"><input type="button" value="Update Employee..."></a>
-        <a href="/delete"><input type="button" value="Delete Employee..."></a>
+
     </main>
     <footer><%- include('../partials/footer'); %></footer>
 </body>

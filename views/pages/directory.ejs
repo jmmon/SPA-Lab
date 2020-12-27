@@ -10,9 +10,12 @@
 
     <main>
         <div class="container">
-            <h1>Top employees</h1>
+            <h1>Our Employees</h1>
             <div class="container">
                 <p>
+                    Our Employee Family. Click on an individual to view their unique profile.
+                </p>
+                <!-- <p>
                     With a working GET request in Postman, you can now start to render
                     the response in HTML
                 </p>
@@ -30,25 +33,24 @@
                 <p>The image below is just an example, remove it and render each employee like the example. Feel free to
                     style it however you'd like! </p>
                 <p>Try mocking up some Bootstrap cards or columns with some hard coded data to get an idea of how your
-                    templates should look. </p>
+                    templates should look. </p> -->
             </div>
             <div class="row justify-content-between">
                 <!-- <img src="/images/example.png" class="img-fluid"> -->
+                <!-- YOUR EJS OR HANDLEBARS TEMPLATE LITERALS GO HERE -->
 
+                <!-- Try mocking up some Bootstrap cards or columns with some hard coded data to get an idea of how your templates should look. -->
 
                 <% employees.forEach(function(id)  { %>
                 <div class="col-3 p-1 m-2 bg-light">
                     <img src="<%= id[1].picture %>">
-                    <%= id[1].firstName %>
-                    <%= id[1].lastName %>
+                    <%= id[1].title[0].toUpperCase()+id[1].title.substr(1) %>
+                    <%= id[1].firstName+' '+id[1].lastName %>
                     <%= id[1].email %>
-                    <%= id[0] %>
+                    <!-- <%= id[0] %> -->
                     <a href="/directory/<%= id[0] %>">View profile</a>
                 </div>
                 <% }); %>
-                <!-- YOUR EJS OR HANDLEBARS TEMPLATE LITERALS GO HERE -->
-
-                <!-- Try mocking up some Bootstrap cards or columns with some hard coded data to get an idea of how your templates should look. -->
             </div>
         </div>
     </main>
