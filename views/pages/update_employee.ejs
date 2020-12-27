@@ -6,7 +6,7 @@
             <p>Using the submit button we will send a PATCH request to the database and then display a success message. </p>
          <div class="bg-light p-2 rounded border my-5">
           <h2>Update Your User</h2>
-            <form id="comment-form" action="" method="">
+            <form id="comment-form" action="/update" method="POST">
               <div class="mb-3">
                 <div class="mb-2">  <label for="input-firstName" class="form-label">First Name:</label>
                   <input type="text" name="user[firstName]"></div>
@@ -14,7 +14,7 @@
                   <input type="text" name="user[id]"></div>
                <div class="mb-2"> <label for="input" class="form-label">Title:</label>
                   <input type="text-title" name="user[title]"></div>
-                <input type="submit" value="Update">
+                <input type="submit" value="Update User">
             </form>
          </div>
         </div>

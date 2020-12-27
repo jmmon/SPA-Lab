@@ -110,7 +110,7 @@ app.get("/directory/:uid", function (req, res) {    // Single Employee
         });
 });
 
-app.post("/delete", function (req, res) { //when delete request is made to /delete page,...
+app.post("/delete", function (req, res) { //when post request is made to /delete page,...
     console.log("Delete employee");
     let id = req.body.user.id;
 
@@ -130,17 +130,16 @@ app.post("/delete", function (req, res) { //when delete request is made to /dele
         });
 });
 
-app.patch("/update", function (req, res) {
+app.post("/update", function (req, res) {   //when post request is made to update page
     console.log('update employees patch');
-    console.log(req.body);
-
-    var data = `{"firstName":"${req.body.user.firstName}","id":"${req.body.user.id}","title":"${req.body.user.title}"}`;
-
+    //console.log(req.body);
+    let id = req.body.user.id;
+    var data = `{"firstName":"${req.body.user.firstName}","title":"${req.body.user.title}"}`;
     console.log(JSON.parse(data));
 
     let config = {
-        method: 'post',
-        url: `https://spa-lab-project-default-rtdb.firebaseio.com/data/${req.body.user.id}.json`,
+        method: 'patch',
+        url: `https://spa-lab-project-default-rtdb.firebaseio.com/data/${id}.json`,
         headers: {
             'Content-Type': 'text/plain'
         },
@@ -149,6 +148,7 @@ app.patch("/update", function (req, res) {
     axios(config)
         .then(function (response) {
             console.log(response.data);
+            res.redirect(`/directory/${id}`);
         })
         .catch(function (error) {
             console.log(error);
