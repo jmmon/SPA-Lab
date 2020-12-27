@@ -3,65 +3,38 @@ var express = require("express"); // Handles routing
 var app = express(); // Server for handling routes, the heart of our app
 var axios = require("axios"); // Handles GET, POST etc request and responses
 const bodyParser = require("body-parser"); // Middleware for dealing with form input data
-
-// Express server setup (boilerplate code from the docs)
-app.set("view engine", "ejs");
-
-// BodyParser middleware setup (boilerplate code from the docs)
-app.use(
+app.set("view engine", "ejs");// Express server setup (boilerplate code from the docs)
+app.use(        // BodyParser middleware setup (boilerplate code from the docs)
     bodyParser.urlencoded({
         extended: true,
     })
 );
-
-
-//user route app.get("/directory/:uid”…
-
-
-// Tells express where to find any static files like images
-app.use(express.static("public"));
+app.use(express.static("public"));// Tells express where to find any static files like images
 
 /// ** -- ROUTES -- ** ///
+//user route app.get("/directory/:uid”…
 
-// GET Home page which renders the index.ejs template. No data needed for plain HTML.
-app.get("/", function (req, res) {
-    res.render("pages/index");
+app.get("/", function (req, res) {  // GET Home page which renders the index.ejs template. 
+    res.render("pages/index");  // No data needed for plain HTML.
 });
 
-
-app.get("/add", function (req, res) {
+app.get("/add", function (req, res) {   // GET Form to add new employee
     res.render("pages/create_employee");
 });
-// POST a new employee route
-app.post("/add", function (req, res) {
-    console.log('Add employees post');
-    // Useful for console logging the form inputs
-    console.log(console.log(req.body));
-    // Example of form data for adding a new user
-    var data = `{"email":"${req.body.user.email}","firstName":"${req.body.user.firstName}","id":"${req.body.user.id}","lastName":"${req.body.user.lastName}","picture":"${req.body.user.picture}","title":"${req.body.user.title}"}`;
-    // Your code goes here
 
-
-    let config = {
-        method: 'post',
-        url: `https://spa-lab-project-default-rtdb.firebaseio.com/data/.json`,
-        headers: {
-            'Content-Type': 'text/plain'
-        },
-        data: data
-    };
-    axios(config)
-        .then(function (response) {
-            console.log(response.data);
-            res.redirect("/directory");
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
+app.get("/about", function (req, res) { // GET static about page
+    res.render("pages/about");
 });
 
-// GET Directory of employees, returns an array of objects from the server.
-app.get("/directory", function (req, res) {
+app.get("/delete", function (req, res) {    //get delete user page
+    res.render("pages/delete_employee");
+});
+
+app.get("/update", function (req, res) {    //get update user page
+    res.render("pages/update_employee");
+});
+
+app.get("/directory", function (req, res) {// GET Directory of employees, returns an array of objects from the server.
     console.log('Get directory');
 
     var config = {
@@ -72,7 +45,6 @@ app.get("/directory", function (req, res) {
 
     axios(config)
         .then(function (response) {
-            //console.log(response.data);
             let responseArray = Object.entries(response.data);
             console.log(responseArray);
             return responseArray;
@@ -86,21 +58,39 @@ app.get("/directory", function (req, res) {
         .catch(function (error) {
             console.log(error);
         });
-
-
-    // Modify this route and the views
 });
 
-// GET static about page
-app.get("/about", function (req, res) {
-    res.render("pages/about");
+
+app.post("/add", function (req, res) {// POST a new employee route
+    console.log('Add employees post');
+    console.log(console.log(req.body));
+
+    var data = `{"email":"${req.body.user.email}","firstName":"${req.body.user.firstName}","id":"${req.body.user.id}","lastName":"${req.body.user.lastName}","picture":"${req.body.user.picture}","title":"${req.body.user.title}"}`;
+
+    let config = {
+        method: 'post',
+        url: `https://spa-lab-project-default-rtdb.firebaseio.com/data/.json`,
+        headers: {
+            'Content-Type': 'text/plain'
+        },
+        data: data
+    };
+
+    axios(config)
+        .then(function (response) {
+            console.log(response.data);
+            res.redirect("/directory");
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
 });
-let uniqueID = 0;
-// Single Employee
-// "Render" the person view here!
-app.get("/directory/:uid", function (req, res) {
+
+let uniqueID = 0;   //testing purposes
+app.get("/directory/:uid", function (req, res) {    // Single Employee
     console.log('specific user (count '+uniqueID+')');
-    uniqueID++;
+    uniqueID++; //testing purposes
+
     let id = req.params.uid;
     var config = {
         method: 'get',
@@ -120,13 +110,7 @@ app.get("/directory/:uid", function (req, res) {
         });
 });
 
-// GET Form to add new employee (GET the form first, then the forms "submit" button handles the POST request.
-
-app.get("/delete", function (req, res) {
-    res.render("pages/delete_employee");
-});
-
-app.delete("/delete", function (req, res) {
+app.post("/delete", function (req, res) { //when delete request is made to /delete page,...
     console.log("Delete employee");
     let id = req.body.user.id;
 
@@ -138,28 +122,21 @@ app.delete("/delete", function (req, res) {
 
     axios(config)
         .then(function (response) {
-            console.log(JSON.stringify(response.data));
+            console.log(response.data);
             res.redirect("/directory");
         })
         .catch(function (error) {
             console.log(error);
         });
-
 });
-
 
 app.patch("/update", function (req, res) {
     console.log('update employees patch');
-    // Useful for console logging the form inputs
-    console.log(console.log(req.body));
-    // Example of form data for adding a new user
+    console.log(req.body);
+
     var data = `{"firstName":"${req.body.user.firstName}","id":"${req.body.user.id}","title":"${req.body.user.title}"}`;
-    // Your code goes here
 
     console.log(JSON.parse(data));
-
-
-
 
     let config = {
         method: 'post',
@@ -178,11 +155,7 @@ app.patch("/update", function (req, res) {
         });
 
 });
-app.get("/update", function (req, res) {
-    res.render("pages/update_employee");
-});
 
 // Express's .listen method is the final part of Express that fires up the server on the assigned port and starts "listening" for request from the app! (boilerplate code from the docs)
-
 app.listen(2001);
 console.log("Port 2001 is open");
