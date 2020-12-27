@@ -1,20 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body>
+    <header><%- include('../partials/header'); %></header>
     <main>
         <div class="container pt-5">
-            <h1>Delete a User by ID</h1>
-            <p>Using the submit button we will send a DELETE request to the database and then display a success message. </p>
-            <p>Delete will take the firebase ID and delete that item.</p>
+            <h1>Delete an Employee by Firebase ID</h1>
+            <p>Delete an employee using their firebase ID as a reference.</p>
          <div class="bg-light p-2 rounded border my-5">
-          <h2>Delete Your User</h2>
+          <h3>Delete Your User</h3>
             <form id="delete-form" action="/delete" method="POST">
               <div class="mb-3">
                 <div class="mb-2">   <label for="input-id" class="form-label">ID:</label>
                   <input type="text" name="user[id]"></div>
                 <input type="submit" value="Delete">
             </form>
+            <p>Using the Delete button we will send a DELETE request to the database and then redirect to employees directory. </p>
          </div>
         </div>
     </main>
+    <footer><%- include('../partials/footer'); %></footer>
 </body>
 </html>

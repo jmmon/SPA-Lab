@@ -1,11 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body>
+    <header><%- include('../partials/header'); %></header>
+
     <main>
         <div class="container pt-5">
-            <h1>Add a User</h1>
-            <p>Using the submit button we will send a POST request to the database and then display a success message. </p>
+            <h1>Add an Employee</h1>
+            <p>Add a new employee to your employees list.</p>
          <div class="bg-light p-2 rounded border my-5">
-          <h2>Add Your User</h2>
+          <h3>Add Your User</h3>
             <form id="comment-form" action="/add" method="POST">
               <div class="mb-3">
                 <div class="mb-2">  <label for="input-firstName" class="form-label">First Name:</label>
@@ -22,10 +30,12 @@
                   <input type="text-title" name="user[title]"></div>
                 <input type="submit" value="Submit">
             </form>
+            <p>Using the Submit button we will send a POST request to the database and then redirect to employees directory. </p>
          </div>
         </div>
         <a href="/update"><input type="button" value="Update Employee..."></a>
         <a href="/delete"><input type="button" value="Delete Employee..."></a>
     </main>
+    <footer><%- include('../partials/footer'); %></footer>
 </body>
 </html>

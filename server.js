@@ -79,7 +79,7 @@ app.post("/add", function (req, res) {// POST a new employee route
     axios(config)
         .then(function (response) {
             console.log(response.data);
-            res.redirect("/directory");
+            res.redirect("/directory"); //redirect to employees directory
         })
         .catch(function (error) {
             console.log(error);
@@ -90,6 +90,7 @@ let uniqueID = 0;   //testing purposes
 app.get("/directory/:uid", function (req, res) {    // Single Employee
     console.log('specific user (count '+uniqueID+')');
     uniqueID++; //testing purposes
+    //for some reason, runs twice when getting newly added users
 
     let id = req.params.uid;
     var config = {
@@ -153,7 +154,6 @@ app.post("/update", function (req, res) {   //when post request is made to updat
         .catch(function (error) {
             console.log(error);
         });
-
 });
 
 // Express's .listen method is the final part of Express that fires up the server on the assigned port and starts "listening" for request from the app! (boilerplate code from the docs)
