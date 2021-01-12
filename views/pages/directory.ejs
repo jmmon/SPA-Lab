@@ -43,12 +43,16 @@
 
                 <% employees.forEach(function(id)  { %>
                 <div class="col-3 p-1 m-2 bg-light">
-                    <img src="<%= id[1].picture %>">
-                    <%= id[1].title[0].toUpperCase()+id[1].title.substr(1) %>
-                    <%= id[1].firstName+' '+id[1].lastName %>
-                    <%= id[1].email %>
+                    <p><img src="<%= id[1].picture %>"></p>
+                    <p>
+                    <%= id[1].title[0].toUpperCase()+id[1].title.substr(1) %><% if (id[1].title !== "miss") { %>.<% } %> <%= id[1].firstName+' '+id[1].lastName %>
+                    </p>
+                    <p>
+                        <%= id[1].email %>
+                    </p>
+                    
                     <!-- <%= id[0] %> -->
-                    <a href="/directory/<%= id[0] %>">View profile</a>
+                    <a class="btn btn-primary" href="/directory/<%= id[0] %>">View profile</a>
                 </div>
                 <% }); %>
             </div>

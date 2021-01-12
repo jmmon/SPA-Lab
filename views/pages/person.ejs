@@ -10,21 +10,23 @@
 
     <main>
         <div class="container">
-            <h1>Detail: <%= person.title[0].toUpperCase()+person.title.substr(1) %> <%= person.lastName %></h1>
+
             <!-- Your code goes here. It should look very similar to other pages hint hint. You'd just need to modify the main content to display a single person.  -->
-            <div class="row justify-content-center" style="display: block">
-                <img src="<%= person.picture %>">
-                <p>
-                    <%= person.title[0].toUpperCase()+person.title.substr(1) %>
-                    <%= person.firstName %>
-                    <%= person.lastName %>
-                </p>
-                <p>
-                    Contact: <%= person.email %>
-                </p>
-                <p>
-                    Firebase ID: <%= person.id %>
-                </p>
+            <div class="row" style="display: block">
+                <div class="col-xs-1 text-center">
+                    <h1>Detail: <%= person.title[0].toUpperCase()+person.title.substr(1) %><% if (person.title !== "miss") { %>.<% } %> <%= person.lastName %></h1>
+                    <img src="<%= person.picture %>">
+                    <p>
+                        <%= person.title[0].toUpperCase()+person.title.substr(1) %><% if (person.title !== "miss") { %>.<% } %>
+                        <%= person.firstName %>
+                        <%= person.lastName %>
+                    </p>
+                    <p>
+                        Contact: <%= person.email %>
+                    </p>
+                    <a class="btn btn-primary" href="/directory/<%= firebasePath %>/update">Update</a>
+                    <a class="btn btn-primary" href="/directory/<%= firebasePath %>/delete">Delete</a>
+                </div>
             </div>
         </div>
     </main>

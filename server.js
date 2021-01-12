@@ -26,13 +26,13 @@ app.get("/about", function (req, res) { // GET static about page
     res.render("pages/about");
 });
 
-app.get("/delete", function (req, res) {    //get delete user page
-    res.render("pages/delete_employee");
-});
+// app.get("/delete", function (req, res) {    //get delete user page
+//     res.render("pages/delete_employee");
+// });
 
-app.get("/update", function (req, res) {    //get update user page
-    res.render("pages/update_employee");
-});
+// app.get("/update", function (req, res) {    //get update user page
+//     res.render("pages/update_employee");
+// });
 
 app.get("/directory", function (req, res) {// GET Directory of employees, returns an array of objects from the server.
     console.log('Get directory');
@@ -45,8 +45,9 @@ app.get("/directory", function (req, res) {// GET Directory of employees, return
 
     axios(config)
         .then(function (response) {
+            console.log('response:', response);
             let responseArray = Object.entries(response.data);
-            console.log(responseArray);
+            console.log('response Array:', responseArray);
             return responseArray;
 
         })
@@ -101,9 +102,10 @@ app.get("/directory/:uid", function (req, res) {    // Single Employee
 
     axios(config)
         .then(function (response) {
-            console.log("Response.data:", response.data);
+            //console.log("Response:", response);
             res.render("pages/person", {
                 person: response.data,
+                firebasePath: id,
             });
         })
         .catch(function (error) {
@@ -111,9 +113,11 @@ app.get("/directory/:uid", function (req, res) {    // Single Employee
         });
 });
 
-app.post("/delete", function (req, res) { //when post request is made to /delete page,...
+app.get("/directory/:uid/delete", function (req, res) { //when profile delete button is pressed, delete employee from firebase and refresh directory
     console.log("Delete employee");
-    let id = req.body.user.id;
+    console.log(req);
+    let id = req.params.uid;
+    console.log(id);
 
     let config = {
         method: 'delete',
@@ -130,12 +134,40 @@ app.post("/delete", function (req, res) { //when post request is made to /delete
             console.log(error);
         });
 });
+app.get("/directory/:uid/update", function (req, res) {
+    console.log('Update emplyee');
+    //console.log('req:', req);
+    let id = req.params.uid;
+    console.log('id:', id);
 
-app.post("/update", function (req, res) {   //when post request is made to update page
-    console.log('update employees patch');
-    //console.log(req.body);
-    let id = req.body.user.id;
-    var data = `{"firstName":"${req.body.user.firstName}","title":"${req.body.user.title}"}`;
+    let config = {
+        method: 'get',
+        url: `https://spa-lab-project-default-rtdb.firebaseio.com/data/${id}.json`,
+        headers: {},
+    };
+
+    axios(config)
+        .then(function (response) {
+            //console.log('response:', response);
+            res.render("pages/update_employee", {
+                person: response.data,
+                firebasePath: id,
+            });
+        })
+        .catch(function (err) {
+            console.log(err);
+        })
+
+});
+
+app.post("/directory/:uid/update", function (req, res) {
+    console.log('Update emplyee');
+    console.log('req:', req);
+    let id = req.params.uid;
+    console.log('id:', id);
+
+    // var data = `{"email":"${req.body.user.email}","firstName":"${req.body.user.firstName}","id":"${req.body.user.id}","lastName":"${req.body.user.lastName}","picture":"${req.body.user.picture}","title":"${req.body.user.title}"}`;
+    let data = `{"firstName":"${req.body.user.firstName}", "title":"${req.body.user.title}"}`;
     console.log(JSON.parse(data));
 
     let config = {
@@ -148,13 +180,40 @@ app.post("/update", function (req, res) {   //when post request is made to updat
     };
     axios(config)
         .then(function (response) {
-            console.log(response.data);
+            //console.log(response.data);
             res.redirect(`/directory/${id}`);
         })
         .catch(function (error) {
             console.log(error);
         });
 });
+
+// app.post("/update", function (req, res) {   //when post request is made to update page
+//     console.log('update employees patch');
+//     console.log(req);
+//     let id = req.body.user.id;
+
+
+
+//     console.log(JSON.parse(data));
+
+//     let config = {
+//         method: 'patch',
+//         url: `https://spa-lab-project-default-rtdb.firebaseio.com/data/${id}.json`,
+//         headers: {
+//             'Content-Type': 'text/plain'
+//         },
+//         data: data
+//     };
+//     axios(config)
+//         .then(function (response) {
+//             console.log(response.data);
+//             res.redirect(`/directory/${id}`);
+//         })
+//         .catch(function (error) {
+//             console.log(error);
+//         });
+// });
 
 // Express's .listen method is the final part of Express that fires up the server on the assigned port and starts "listening" for request from the app! (boilerplate code from the docs)
 app.listen(2001);

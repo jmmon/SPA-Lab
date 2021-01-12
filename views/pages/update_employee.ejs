@@ -8,18 +8,38 @@
     <header><%- include('../partials/header'); %></header>
     <main>
         <div class="container pt-5">
-            <h1>Update an Employee</h1>
-            <p>Update an existing employee's first name and title, using the firebase ID as a reference.</p>
+            <h1>Update <%= person.firstName %> <%= person.lastName %></h1>
+            <p>Update <%= person.title[0].toUpperCase()+person.title.substr(1) %><% if (person.title !== "miss") { %>.<% } %> <%= person.lastName %>'s first name and title.</p>
          <div class="bg-light p-2 rounded border my-5">
           <h3>Update Your Employee</h3>
-            <form id="comment-form" action="/update" method="POST">
+            <form id="comment-form" action="" method="POST">
+                
               <div class="mb-3">
-                <div class="mb-2">  <label for="input-firstName" class="form-label">First Name:</label>
-                  <input type="text" name="user[firstName]"></div>
-                <div class="mb-2">   <label for="input-id" class="form-label">ID:</label>
-                  <input type="text" name="user[id]"></div>
-               <div class="mb-2"> <label for="input" class="form-label">Title:</label>
-                  <input type="text-title" name="user[title]"></div>
+                <p><img src="<%= person.picture %>"></p>
+                <div class="mb-2">
+                    <label for="input-firstName" class="form-label">First Name:</label>
+                    <input type="text" name="user[firstName]" value="<%= person.firstName %>">
+                </div>
+                <div class="mb-2">
+                    <label for="input-lastName" class="form-label">Last Name:</label>
+                    <input type="text" name="user[lastName]" value="<%= person.lastName %>" disabled>
+                </div>
+                <div class="mb-2">
+                    <label for="input-email" class="form-label">Email:</label>
+                    <input type="text" name="user[email]" value="<%= person.email %>" disabled>
+                </div>
+                <div class="mb-2">
+                    <label for="input-id" class="form-label">ID:</label>
+                    <input type="text" name="user[id]" value="<%= person.id %>" disabled>
+                </div>
+                <div class="mb-2">
+                    <label for="input-picture" class="form-label">Picture:</label>
+                    <input type="text" name="user[picture]" value="<%= person.picture %>" disabled>
+                </div>
+               <div class="mb-2">
+                   <label for="input" class="form-label">Title:</label>
+                    <input type="text-title" name="user[title]" value="<%= person.title %>">
+                </div>
                 <input type="submit" value="Update Employee">
             </form>
             <p>Using the Update button we will send a PATCH request to the database and then redirect to the employee's profile page. </p>
